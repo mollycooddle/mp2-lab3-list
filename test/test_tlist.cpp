@@ -109,7 +109,7 @@ TEST(tList, test_insert_different_type)
 {
 	List<int> l(2, 0);
 
-	ASSERT_ANY_THROW(l.insert(1, l.get_index(1)));
+	ASSERT_ANY_THROW(l.insert('c', l.get_index(1)));
 }
 
 TEST(tList, test_insert_front)
@@ -121,6 +121,13 @@ TEST(tList, test_insert_front)
 
 	EXPECT_EQ(1, l[0]);
 	EXPECT_EQ(4, sz + 1);
+}
+
+TEST(tList, test_insert_front_different_type)
+{
+	List<int> l(2, 0);
+
+	ASSERT_ANY_THROW(l.insert_front('c'));
 }
 
 TEST(tList, test_erase)
@@ -182,12 +189,12 @@ TEST(tList, test_get_first)
 //
 //	EXPECT_EQ(l1, l);
 //}
-//
-//TEST(tList, test_ostr)
-//{
-//	List<int> l(2);
-//
-//	l[1] = 2;
-//
-//	ASSERT_NO_THROW(std::cout << l);
-//}
+
+TEST(tList, test_ostr)
+{
+	List<int> l(2);
+
+	l[1] = 2;
+
+	ASSERT_NO_THROW(std::cout << l);
+}

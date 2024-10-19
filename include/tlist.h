@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <type_traits>
 
 //	Numbering in [] / get_index:
 //	1 element - 0 / first
@@ -176,11 +177,11 @@ public:
 		return tmp;
 	}
 
-	Node* insert(T value, Node* prev)
+	template <class T2>
+	Node* insert(T2 value, Node* prev)
 	{
-
-		if (typeid(value) != typeid(prev->data))
-			throw 1;
+		if (!is_same<T, T2>::value)
+			throw "different type in insert";
 
 		Node* tmp = new Node;
 
@@ -191,8 +192,12 @@ public:
 		return tmp;
 	}
 
-	Node* insert_front(T value) noexcept
+	template <class T2>
+	Node* insert_front(T2 value)
 	{
+		if (!is_same<T, T2>::value)
+			throw "different type in insert_front";
+
 		Node* tmp = new Node;
 
 		tmp->data = value;
