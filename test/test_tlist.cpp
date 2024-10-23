@@ -179,17 +179,6 @@ TEST(tList, test_get_first)
 	EXPECT_EQ(l.get_index(0), l.get_first());
 }
 
-//TEST(tList, test_istr)
-//{
-//	List<int> l(2);
-//	List<int> l1(2, 2);
-//
-//	std::cin >> l;
-//	std::cout << std::endl;
-//
-//	EXPECT_EQ(l1, l);
-//}
-
 TEST(tList, test_ostr)
 {
 	List<int> l(2);

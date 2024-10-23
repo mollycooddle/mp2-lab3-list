@@ -73,11 +73,7 @@ public:
 			return *this;
 		}
 
-		while (first != nullptr) {
-			Node* temp = first;
-			first = first->next;
-			delete temp;
-		}
+		clear(first, "ALL");
 
 		Node* current_other = other.first;
 		Node** current = &first;
@@ -131,6 +127,34 @@ public:
 		}
 
 		return true;
+	}
+
+	Node* clear(Node* index, string quality = "ONE") {
+		if (quality == "ALL") {
+			while (index != nullptr) {
+				Node* temp = index;
+				index = index->next;
+				delete temp;
+			
+				return index;
+			}
+		}
+		else if (quality == "ONE") {
+			Node* tmp = index->next;
+			index->next = tmp->next;
+			delete tmp;
+
+			return index;
+		}
+		else if (quality == "FIRST") {
+			Node* tmp = index;
+			index = tmp->next;
+			delete tmp;
+
+			return index;
+		}
+		else
+			throw "the given number of items cannot be deleted";
 	}
 
 	T& operator[] (int index)
@@ -209,18 +233,15 @@ public:
 
 	Node* erase(Node* prev) noexcept
 	{
-		Node* tmp = prev->next;
-		prev->next = tmp->next;
-		delete tmp;
+		clear(prev, "ONE");
 
 		return prev->next;
 	}
 
 	Node* erase_front() noexcept
 	{
-		Node* tmp = first;
-		first = tmp->next;
-		delete tmp;
+		Node* ind = clear(first, "FIRST");
+		first = ind;
 
 		return first;
 	}
