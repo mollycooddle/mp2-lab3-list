@@ -87,6 +87,10 @@ public:
 		return *this;
 	}
 
+	~List() {
+		clear(first, "ALL");
+	}
+
 	//additional method
 	bool operator==(const List<T>& other) const noexcept
 	{
@@ -129,6 +133,7 @@ public:
 		return true;
 	}
 
+	//additional method
 	Node* clear(Node* index, string quality = "ONE") {
 		if (quality == "ALL") {
 			while (index != nullptr) {
