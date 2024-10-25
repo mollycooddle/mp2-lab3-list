@@ -60,6 +60,21 @@ TEST(tList, test_operator_ravno_equal_list)
 	EXPECT_EQ(l, l1);
 }
 
+TEST(tList, test_operator_ravno_different_memory)
+{
+	List<int> l(2, 0);
+	List<int> l1(2, 0);
+
+	l[1] = 1;
+
+	l1 = l;
+
+	l1[1] = 10;
+
+	EXPECT_EQ(1, l[1]);
+	EXPECT_EQ(10, l1[1]);
+}
+
 TEST(tList, test_operator_skobki) 
 {
 	List<int> l(2, 0);
