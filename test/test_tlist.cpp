@@ -202,3 +202,24 @@ TEST(tList, test_ostr)
 
 	ASSERT_NO_THROW(std::cout << l);
 }
+
+TEST(iterator, test_begin_and_end_and_PlusPlus_and_index)
+{
+	List<int> l(2);
+
+	l[0] = 1;
+	l[2] = 2;
+
+	auto it = l.begin();
+	auto itBegin = it;
+	int first = *it;
+	auto itSecond = ++it;
+	int second = *itSecond;
+	auto itLast = ++it;
+	int last = *itLast;
+
+	EXPECT_EQ(1, first);
+	EXPECT_EQ(0, second);
+	EXPECT_EQ(2, last);
+}
+

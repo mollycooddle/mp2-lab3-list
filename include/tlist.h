@@ -60,10 +60,13 @@ public:
 		Node* current = first;
 		Node* occurent = other.first;
 		
-		while (occurent->next) {
+		/*while (occurent->next) {
 			current->next = new Node(occurent->next->next->data, nullptr);
 			current = current->next;
 			occurent = occurent->next;
+		}*/
+		for (List<T>::iterator it = other.begin(); it != other.end(); ++it) {
+			current->next = new Node(occurent->next->next->data, nullptr);
 		}
 	}
 
@@ -136,11 +139,17 @@ public:
 	//additional method
 	Node* clear(Node* index, string quality = "ONE") {
 		if (quality == "ALL") {
-			while (index != nullptr) {
+			//while (index != nullptr) {
+			//	Node* temp = index;
+			//	index = index->next;
+			//	delete temp;
+			//}
+
+
+			for (List<T>::iterator it = begin(); it != end(); ++it) {
 				Node* temp = index;
 				index = index->next;
 				delete temp;
-			
 				return index;
 			}
 		}
@@ -180,9 +189,13 @@ public:
 	{
 		int size = 0;
 		Node* current = first;
-		while (current) {
+		//while (current) {
+		//	size++;
+		//	current = current->next;
+		//}
+
+		for (List<T>::iterator it = begin(); it != end(); ++it) {
 			size++;
-			current = current->next;
 		}
 
 		return size;
@@ -256,13 +269,11 @@ public:
 		Node* current = first;
 		Node* tmp = nullptr;
 
-		while (current) {
-			if (current->data == value) {
-				tmp = current;
+		for (List<T>::iterator it = begin(); it != end(); ++it) {
+			if (*it == value) {
+				tmp = it.get_current();
 				break;
 			}
-
-			current = current->next;
 		}
 
 		if (tmp == nullptr)
@@ -298,5 +309,64 @@ public:
 		}
 
 		return ostr;
+	}
+
+	class iterator {
+		Node* current;
+
+		explicit iterator(Node* node) : current(node){}
+	public:
+
+		friend class List<T>;
+
+		iterator& operator++() 
+		{
+			current = current->next;
+			return *this;
+		}
+
+		iterator operator++(int)
+		{
+			iterator copy = *this;
+			current = current->next;
+			return copy;
+		}
+
+		T& operator*()
+		{
+			return current->data;
+		}
+
+		T* operator->()
+		{
+			return &(current->data);
+		}
+
+		friend bool operator!=(const iterator& it1, const iterator& it2)
+		{
+			return (it1.current != it2.current);
+		}
+
+		friend bool operator==(const iterator& it1, const iterator& it2)
+		{
+			return (it1.current == it2.current);
+		}
+
+		//additional method
+		Node* get_current() {
+			return current;
+		}
+
+		iterator begin();
+
+		iterator end();
+	};
+
+	typename List<T>::iterator List<T>::begin() {
+		return iterator(first);
+	}
+
+	typename List<T>::iterator List<T>::end() {
+		return iterator(nullptr);
 	}
 };
