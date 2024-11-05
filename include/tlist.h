@@ -369,4 +369,46 @@ public:
 	typename List<T>::iterator List<T>::end() {
 		return iterator(nullptr);
 	}
+
+
+
+	//ZADACHA №15
+	bool hasCycle() {
+		if (first == nullptr || first->next == nullptr)
+			return false;
+
+		Node* slow = first;
+		Node* fast = first;
+
+		while (fast != nullptr && fast->next != nullptr) {
+			slow = slow->next;
+			fast = fast->next->next;
+
+			if (slow == fast)
+				return true;
+		}
+
+		return false;
+	}
+
+	List(char ch, int n, T deflt = T())
+	{
+		if (n < 0)
+			throw "incorrect length of the created List";
+
+		if (n == 0)
+			return;
+
+		first = new Node(deflt, nullptr);
+		Node* current = first;
+
+		for (int i = 0; i < n; i++) {
+			Node* tmp = new Node(deflt, nullptr);
+			current->next = tmp;
+			current = current->next;
+			if (current->next == nullptr) {
+				current->next = first;
+			}
+		}
+	}
 };

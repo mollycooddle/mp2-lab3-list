@@ -223,3 +223,14 @@ TEST(iterator, test_begin_and_end_and_PlusPlus_and_index)
 	EXPECT_EQ(2, last);
 }
 
+TEST(ZADACHA, number_15) 
+{
+	List<int> l(2, 1);
+	List<int> l1(0);
+	List<int> l2('c', 3, 2);
+
+
+	EXPECT_EQ(false, l.hasCycle());
+	EXPECT_EQ(false, l1.hasCycle());
+	EXPECT_EQ(true, l2.hasCycle());
+}
